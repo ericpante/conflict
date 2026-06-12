@@ -1,0 +1,19 @@
+---
+title: "conflict introduction"
+output: rmarkdown::html_vignette
+---
+
+## Overview
+
+This package detects conflicts of interest between authors and reviewers using OpenAlex co-authorship data.
+
+## Example
+
+```{r}
+library(conflict)
+
+detect_coi_pair(
+  "https://openalex.org/A123",
+  "https://openalex.org/A456"
+)
+```
