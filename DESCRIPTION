@@ -1,18 +1,31 @@
 Package: conflict
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Type: Package
+Title: Detect Conflicts of Interest Between Authors and Reviewers Using OpenAlex Data
+Version: 0.1.0
+Authors@R: person("Eric", "Pante",
+  email = "eric.pante@cnrs.fr",
+  role = c("cre", "aut"),
+  comment = c(ORCID = "0000-0001-7680-2112"))
+Description: Identifies potential conflicts of interest between authors and reviewers using co-authorship networks derived from OpenAlex data. Provides tools for screening, scoring, and explaining reviewer conflicts.
+License: MIT
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.0.0
-Imports: 
-    dplyr,
-    igraph,
+LazyData: true
+Imports:
     openalexR,
+    dplyr,
     purrr,
+    tidyr,
+    igraph,
     stringr,
-    tidyr
+    memoise,
+    rappdirs,
+    tibble
+Suggests:
+    testthat (>= 3.0.0),
+    rmarkdown,
+    knitr
+Config/testthat/edition: 3
+URL: https://github.com/ericpante/conflict
+BugReports: https://github.com/ericpante/conflict/issues
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0

@@ -6,18 +6,16 @@
 #' @export
 get_author_works <- function(author_id, verbose = FALSE) {
 
-  res <- openalexR::oa_fetch(
+  res <- safe_oa_fetch(
     entity = "works",
     filter = paste0("author.id:", author_id),
     verbose = verbose
   )
 
-  if (is.null(res)) return(NULL)
+  if (is.null(res)) return(tibble::tibble())
 
-  res |>
-    dplyr::select(
-      id,
-      publication_year,
-      authorships
-    )
+  dplyr::tibble(
+    work_id = res$id,
+    year = res$publication_year
+  )
 }
