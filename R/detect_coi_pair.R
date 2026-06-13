@@ -29,20 +29,20 @@ detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = FALSE) {
   )
 
   shared_table <- author_works |>
-    mutate(
-      reviewer = map_int(
+    dplyr::mutate(
+      reviewer = purrr::map_int(
         authorships,
         ~ as.integer(reviewer_id %in% .x$id)
       )
     ) |>
-    group_by(year) |>
-    summarise(
+    dplyr::group_by(year) |>
+    dplyr::summarise(
       n_shared = sum(reviewer),
       .groups = "drop"
     )
 
   n_shared <- sum(shared_table$n_shared)
-  n_shared_coi <- sum(filter(shared_table, year>=max(year)-coi_yr)$n_shared)
+  n_shared_coi <- sum(dplyr::filter(shared_table, year>=max(year)-coi_yr)$n_shared)
 
   # flag <- dplyr::case_when(
   #   n_shared > 0 ~ "HARD_CONFLICT",

@@ -4,12 +4,14 @@
 \alias{detect_coi_pair}
 \title{Detect conflict of interest between author and reviewer}
 \usage{
-detect_coi_pair(author_id, reviewer_id, verbose = FALSE)
+detect_coi_pair(author_id, reviewer_id, coi_yr, verbose = FALSE)
 }
 \arguments{
 \item{author_id}{OpenAlex author ID}
 
-\item{reviewer_id}{OpenAlex author ID}
+\item{reviewer_id}{OpenAlex reviewer ID}
+
+\item{coi_yr}{years since author & reviewer have published together}
 
 \item{verbose}{logical}
 }
