@@ -1,5 +1,5 @@
 usethis::create_package("conflict")
-setwd("conflict")
+setwd("~/Documents/GitHub/conflict")
 
 usethis::use_package("openalexR")
 usethis::use_package("dplyr")

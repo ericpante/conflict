@@ -1,13 +1,13 @@
-# R/coi.R
+# R/detect_coi_pair.R
 
 #' Detect conflict of interest between author and reviewer
 #'
 #' @param author_id OpenAlex author ID
-#' @param reviewer_id OpenAlex author ID
+#' @param reviewer_id OpenAlex reviewer ID
+#' @param coi_yr years since author & reviewer have published together
 #' @param verbose logical
 #' @export
-detect_coi_pair <- function(author_id, reviewer_id, verbose = FALSE) {
-
+detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = FALSE) {
   author_works <- get_author_works(author_id)
   reviewer_works <- get_author_works(reviewer_id)
 
@@ -21,14 +21,28 @@ detect_coi_pair <- function(author_id, reviewer_id, verbose = FALSE) {
     ))
   }
 
-  author_papers <- unlist(lapply(author_works$authorships, function(x) x$work$id))
-  reviewer_papers <- unlist(lapply(reviewer_works$authorships, function(x) x$work$id))
+  n_shared <-  sum(
+    purrr::map_lgl(
+      author_works$authorships,
+      ~ "Amélia Viricel" %in% .x$display_name
+    )
+  )
 
-  shared <- intersect(author_papers, reviewer_papers)
+  shared_table <- author_works |>
+    mutate(
+      reviewer = map_int(
+        authorships,
+        ~ as.integer(reviewer_id %in% .x$id)
+      )
+    ) |>
+    group_by(year) |>
+    summarise(
+      n_shared = sum(reviewer),
+      .groups = "drop"
+    )
 
-  n_shared <- length(shared)
-
-  coi_score <- n_shared
+  n_shared  <- sum(shared_table$n_shared)
+  coi_score <- sum(filter(shared_table, year>=max(year)-coi_yr)$n_shared)
 
   flag <- dplyr::case_when(
     n_shared > 0 ~ "HARD_CONFLICT",

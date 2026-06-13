@@ -1,4 +1,4 @@
-# R/safe_fetch.R
+# R/safe_oa_fetch.R
 
 safe_oa_fetch <- memoise::memoise(function(...) {
   tryCatch(
