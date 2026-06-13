@@ -41,21 +41,20 @@ detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = FALSE) {
       .groups = "drop"
     )
 
-  n_shared  <- sum(shared_table$n_shared)
-  coi_score <- sum(filter(shared_table, year>=max(year)-coi_yr)$n_shared)
+  n_shared <- sum(shared_table$n_shared)
+  n_shared_coi <- sum(filter(shared_table, year>=max(year)-coi_yr)$n_shared)
 
-  flag <- dplyr::case_when(
-    n_shared > 0 ~ "HARD_CONFLICT",
-    coi_score >= 3 ~ "HIGH",
-    coi_score >= 1 ~ "MEDIUM",
-    TRUE ~ "NONE"
-  )
+  # flag <- dplyr::case_when(
+  #   n_shared > 0 ~ "HARD_CONFLICT",
+  #   coi_score >= 3 ~ "HIGH",
+  #   coi_score >= 1 ~ "MEDIUM",
+  #   TRUE ~ "NONE"
+  # )
 
   data.frame(
     author = author_id,
     reviewer = reviewer_id,
     shared_papers = n_shared,
-    coi_score = coi_score,
-    flag = flag
+    shared_in_past_yrs = n_shared_coi
   )
 }
