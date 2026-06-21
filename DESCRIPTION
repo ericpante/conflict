@@ -19,7 +19,9 @@ Imports:
     stringr,
     memoise,
     rappdirs,
-    tibble
+    tibble,
+    rvest,
+    httr2
 Suggests:
     testthat (>= 3.0.0),
     rmarkdown,

@@ -7,7 +7,7 @@
 #' @param coi_yr years since author & reviewer have published together
 #' @param verbose logical
 #' @export
-detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = FALSE) {
+detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = TRUE) {
   author_works <- get_author_works(author_id)
   reviewer_works <- get_author_works(reviewer_id)
 
