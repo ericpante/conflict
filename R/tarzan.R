@@ -8,7 +8,8 @@ tarzan = function(abstract){
   url <- URLencode(paste0(janeAPI, abstract))
 
   res <- tryCatch(
-    request(url) |> req_perform(),
+    httr2::request(url) |>
+      httr2::req_perform(),
     error = function(e) return(NULL)
     )
 
