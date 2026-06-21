@@ -1,5 +1,5 @@
 # R/tarzan.R
-#' tarzan queries JANE's APÏ
+#' tarzan queries JANE's API to retrieve the results of a JANE search. It then queries OpenAlex's API to retrieve the ORCID and affiliation for authors, based on the first PubMed paper detected by JANE.
 #' @param abstract the text to submit to JANE; for PCI, it is the abstract
 #' @param n is the number of authors returned from JANE that you want to keep (default=10, max=100)
 #' @export
@@ -33,6 +33,12 @@ tarzan = function(abstract, n){
     html_attr("value")
   pubmed <- pubmed[1:n]
   first_pubmed <- sub(";.*", "", pubmed)
+
+  email <- html |>
+    html_elements('input[name^="authorPMIDs"]') |>
+    html_attr("value")
+  email <- email[1:n]
+
 
   orcid <- rep(NA_character_, length(first_pubmed))
   aff <- rep(NA_character_, length(first_pubmed))
