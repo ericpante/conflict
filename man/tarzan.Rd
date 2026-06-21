@@ -4,10 +4,12 @@
 \alias{tarzan}
 \title{tarzan queries JANE's APÏ}
 \usage{
-tarzan(abstract)
+tarzan(abstract, n)
 }
 \arguments{
 \item{abstract}{the text to submit to JANE; for PCI, it is the abstract}
+
+\item{n}{is the number of authors returned from JANE that you want to keep (default=10, max=100)}
 }
 \description{
 tarzan queries JANE's APÏ

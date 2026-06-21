@@ -12,6 +12,7 @@ usethis::use_package("memoise")
 usethis::use_package("rappdirs")
 usethis::use_package("rvest")
 usethis::use_package("httr2")
+usethis::use_package("cli")
 
 # check structure
 devtools::check()
