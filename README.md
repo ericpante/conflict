@@ -14,7 +14,7 @@ The package comes with no guarantee and is meant as a tool to help you navigate 
 pak::pak("ericpante/conflict")
 ```
 
-## The `conflict` pipeline:
+## The `conflict` pipeline
 
 ``` r
 # create a corpus of data from the paper you want to find reviewers for.
