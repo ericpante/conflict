@@ -5,10 +5,10 @@
 #' @export
 
 clean <- function(authors, candidates) {
-  candidates %>%
+  candidates |>
     dplyr::anti_join(
-      authors[[1]] %>%
-        dplyr::filter(!is.na(orcid)) %>%
+      authors[[1]] |>
+        dplyr::filter(!is.na(orcid)) |>
         dplyr::distinct(orcid),
       by = "orcid"
     )

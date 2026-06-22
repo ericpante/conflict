@@ -29,14 +29,14 @@ tarzan = function(abstract, n){
   conf_auth <- conf[1:n]
 
   pubmed <- html |>
-    html_elements('input[name^="authorPMIDs"]') |>
-    html_attr("value")
+    rvest::html_elements('input[name^="authorPMIDs"]') |>
+    rvest::html_attr("value")
   pubmed <- pubmed[1:n]
   first_pubmed <- sub(";.*", "", pubmed)
 
   email <- html |>
-    html_elements('input[name^="authorPMIDs"]') |>
-    html_attr("value")
+    rvest::html_elements('input[name^="authorPMIDs"]') |>
+    rvest::html_attr("value")
   email <- email[1:n]
 
 
@@ -44,7 +44,7 @@ tarzan = function(abstract, n){
   aff <- rep(NA_character_, length(first_pubmed))
   oa_id <- rep(NA_character_, length(first_pubmed))
 
-  pb <- cli_progress_bar(
+  pb <- cli::cli_progress_bar(
     format = "Processing PubMed {cli::pb_current}/{cli::pb_total} [{cli::pb_bar}] {cli::pb_percent}",
     total = length(first_pubmed)
   )
@@ -68,9 +68,9 @@ tarzan = function(abstract, n){
       aff[i] <- NA_character_
       oa_id[i] <- NA_character_
     }
-    cli_progress_update(id = pb)
+    cli::cli_progress_update(id = pb)
   }
-  cli_progress_done(id = pb)
+  cli::cli_progress_done(id = pb)
 
   tibble::tibble(author=authors,
                  confidence=conf_auth,

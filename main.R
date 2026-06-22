@@ -20,4 +20,3 @@ devtools::check()
 # NAMESPACE
 usethis::use_roxygen_md()
 devtools::document()
-

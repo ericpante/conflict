@@ -16,6 +16,27 @@ pak::pak("ericpante/conflict")
 
 ## The `conflict` pipeline:
 
-- create a corpus of data from the paper you want to find reviewers for.
-- search for potential reviewers from JANE.
-- check whether authors (from JANE or not) have a conflic of interest.
+``` r
+# create a corpus of data from the paper you want to find reviewers for.
+preprint.doi <- "https://doi.org/10.64898/2026.02.27.708454"
+preprint <- get_preprint(preprint.doi)
+print(preprint)
+
+# search for potential reviewers from JANE using tarzan; keep top 10 names.
+potential.reviewers <- tarzan(preprint$abstract, 10)
+print(potential.reviewers)
+
+# remove authors from the tibble of potential.reviewers
+cleaned.potential.reviewers <- clean(preprint$authors, potential.reviewers)
+print(cleaned.potential.reviewers)
+
+# check whether a pair of author-reviewer (from JANE or not) have a conflict of interest (coi).
+ms_first_author <- preprint$authors[[1]]$id[1]
+a_potential_reviewer <- cleaned.potential.reviewers$id[1]
+detect_coi_pair(ms_first_author, a_potential_reviewer, coi_yr=2)
+
+# check whether any author-reviewer combination have a conflict of interest (coi).
+ms_authors <- preprint$authors[[1]]$id
+rev_candidates <- cleaned.potential.reviewers$id
+screen_reviewers(ms_authors, rev_candidates, 2)
+```

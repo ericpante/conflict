@@ -4,7 +4,7 @@
 \alias{screen_reviewers}
 \title{Screen multiple reviewers for one author}
 \usage{
-screen_reviewers(author_id, reviewer_ids)
+screen_reviewers(author_ids, reviewer_ids, yr)
 }
 \description{
 Screen multiple reviewers for one author
