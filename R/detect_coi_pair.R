@@ -1,6 +1,6 @@
 # R/detect_coi_pair.R
 
-#' Detect conflict of interest between author and reviewer
+#' Detects conflict of interest between author and reviewer
 #'
 #' @param author_id OpenAlex author ID
 #' @param reviewer_id OpenAlex reviewer ID
@@ -51,10 +51,11 @@ detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = TRUE) {
   #   TRUE ~ "NONE"
   # )
 
-  data.frame(
-    author = author_id,
-    reviewer = reviewer_id,
+  col_nm = paste0("shared_in_past_",coi_yr,"yrs")
+  tibble::tibble(
+    author = sub("https://openalex.org/","", author_id),
+    reviewer = sub("https://openalex.org/","", reviewer_id),
     shared_papers = n_shared,
-    shared_in_past_yrs = n_shared_coi
+    !!col_nm := n_shared_coi
   )
 }

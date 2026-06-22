@@ -42,6 +42,7 @@ tarzan = function(abstract, n){
 
   orcid <- rep(NA_character_, length(first_pubmed))
   aff <- rep(NA_character_, length(first_pubmed))
+  oa_id <- rep(NA_character_, length(first_pubmed))
 
   pb <- cli_progress_bar(
     format = "Processing PubMed {cli::pb_current}/{cli::pb_total} [{cli::pb_bar}] {cli::pb_percent}",
@@ -59,11 +60,13 @@ tarzan = function(abstract, n){
     idx <- which(match)
 
     if (length(idx) > 0) {
-      orcid[i] <- work$authorships[[1]]$orcid[idx[1]]
+      orcid[i] <- sub("https://orcid.org/", "", work$authorships[[1]]$orcid[idx[1]])
       aff[i] <- work$authorships[[1]]$affiliation_raw[idx[1]]
+      oa_id[i] <- sub("https://openalex.org/", "", work$authorships[[1]]$id[idx[1]])
     } else {
       orcid[i] <- NA_character_
       aff[i] <- NA_character_
+      oa_id[i] <- NA_character_
     }
     cli_progress_update(id = pb)
   }
@@ -73,6 +76,7 @@ tarzan = function(abstract, n){
                  confidence=conf_auth,
                  pmdi=first_pubmed,
                  orcid=orcid,
+                 id=oa_id,
                  affiliation=aff
                  )
 }

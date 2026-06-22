@@ -2,7 +2,7 @@
 % Please edit documentation in R/detect_coi_pair.R
 \name{detect_coi_pair}
 \alias{detect_coi_pair}
-\title{Detect conflict of interest between author and reviewer}
+\title{Detects conflict of interest between author and reviewer}
 \usage{
 detect_coi_pair(author_id, reviewer_id, coi_yr, verbose = TRUE)
 }
@@ -16,5 +16,5 @@ detect_coi_pair(author_id, reviewer_id, coi_yr, verbose = TRUE)
 \item{verbose}{logical}
 }
 \description{
-Detect conflict of interest between author and reviewer
+Detects conflict of interest between author and reviewer
 }

@@ -2,10 +2,12 @@
 
 export(build_coauthor_edges)
 export(build_coauthor_graph)
+export(clean)
 export(detect_coi_pair)
 export(explain_coi)
 export(get_author_institution)
 export(get_author_works)
+export(get_preprint)
 export(parse_jane)
 export(screen_reviewers)
 export(tarzan)

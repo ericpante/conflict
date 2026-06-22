@@ -2,7 +2,7 @@
 % Please edit documentation in R/tarzan.R
 \name{tarzan}
 \alias{tarzan}
-\title{tarzan queries JANE's APÏ}
+\title{tarzan queries JANE's API to retrieve the results of a JANE search. It then queries OpenAlex's API to retrieve the ORCID and affiliation for authors, based on the first PubMed paper detected by JANE.}
 \usage{
 tarzan(abstract, n)
 }
@@ -12,5 +12,5 @@ tarzan(abstract, n)
 \item{n}{is the number of authors returned from JANE that you want to keep (default=10, max=100)}
 }
 \description{
-tarzan queries JANE's APÏ
+tarzan queries JANE's API to retrieve the results of a JANE search. It then queries OpenAlex's API to retrieve the ORCID and affiliation for authors, based on the first PubMed paper detected by JANE.
 }
