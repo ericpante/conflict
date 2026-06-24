@@ -1,6 +1,6 @@
 # R/safe_oa_fetch.R
 
-safe_oa_fetch <- memoise::memoise(function(...) {
+safe_oa_fetch <- function(...) {
   tryCatch(
     openalexR::oa_fetch(...),
     error = function(e) {
@@ -8,4 +8,5 @@ safe_oa_fetch <- memoise::memoise(function(...) {
       return(NULL)
     }
   )
-}, cache = get_cache())
+}
+

@@ -18,5 +18,19 @@ get_author_works <- function(author_id, verbose = FALSE) {
     work_id = res$id,
     year = res$publication_year,
     authorships = res$authorships
-  )
+  ) |>
+    dplyr::mutate(
+      query_author = purrr::map_chr(
+        res$authorships,
+        ~ {
+          idx <- which(vapply(
+            .x$id,
+            identical,
+            logical(1),
+            author_id
+          ))
+          if (length(idx)) .x$display_name[idx] else NA_character_
+        }
+      )
+    )
 }

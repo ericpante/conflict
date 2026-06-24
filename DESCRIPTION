@@ -17,7 +17,6 @@ Imports:
     tidyr,
     igraph,
     stringr,
-    memoise,
     rappdirs,
     tibble,
     rvest,
