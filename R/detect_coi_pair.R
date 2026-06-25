@@ -9,7 +9,7 @@
 #' @export
 
 detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = TRUE) {
-  rev_id <- reviewer_id # avoids interpretation pbs in mutate
+
   author_works <- get_author_works(author_id)
   reviewer_works <- get_author_works(reviewer_id)
 
@@ -23,25 +23,38 @@ detect_coi_pair <- function(author_id, reviewer_id, coi_yr, verbose = TRUE) {
     ))
   }
 
-  n_shared <-  sum(
+  n_shared <- sum(
     purrr::map_lgl(
       author_works$authorships,
-      ~ rev_id %in% .x$display_name
+      ~ reviewer_id %in% .x$display_name
     )
   )
 
-  shared_table <- author_works |>
+  shared <- author_works |>
     dplyr::mutate(
       reviewer = purrr::map_int(
-        authorships,
-        ~ as.integer(rev_id %in% .x$id)
+        !!author_works$authorships,
+        ~ as.integer(reviewer_id %in% .x$id)
       )
-    ) |>
-    dplyr::group_by(year) |>
-    dplyr::summarise(
-      n_shared = sum(reviewer),
-      .groups = "drop"
     )
+
+  # shared_table <- shared |>
+  #   dplyr::group_by(year) |>
+  #       dplyr::summarise(
+  #     n_shared = sum(reviewer),
+  #     .groups = "drop"
+  #   )
+
+
+  shared_table <- aggregate(
+    reviewer ~ year,  # group by year, summarize reviewer
+    data = shared,
+    FUN = sum,
+    na.rm = TRUE
+  )
+
+  # Rename the output column to 'n_shared'
+  names(shared_table)[2] <- "n_shared"
 
   n_shared <- sum(shared_table$n_shared)
   n_shared_coi <- sum(dplyr::filter(shared_table, year>=max(year)-coi_yr)$n_shared)
